@@ -13,9 +13,9 @@ function getStore() {
   try {
     const parsed = JSON.parse(data);
     return parsed.map(n => {
-      if (!n.emoji) {
+      if (!n.icon) {
         const seed = SEED_NEGOCIOS.find(s => s.id === n.id);
-        if (seed && seed.emoji) n.emoji = seed.emoji;
+        if (seed && seed.icon) n.icon = seed.icon;
       }
       return n;
     });

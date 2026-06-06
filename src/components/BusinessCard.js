@@ -2,6 +2,8 @@
 
 import { getCategoryInfo } from '@/lib/categories';
 import { getDistanceInfo } from '@/lib/geo';
+import { getIconComponent } from '@/lib/iconMap';
+import { MapPin, Footprints, Car } from 'lucide-react';
 
 export default function BusinessCard({ negocio, userLocation, onClick }) {
   const categoryInfo = getCategoryInfo(negocio.categoria);
@@ -30,10 +32,16 @@ export default function BusinessCard({ negocio, userLocation, onClick }) {
           className="business-card-icon"
           style={{
             backgroundColor: `${categoryInfo.color}15`,
-            fontSize: '1.5rem',
+            color: categoryInfo.color,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
-          {negocio.emoji}
+          {(() => {
+            const IconComponent = getIconComponent(negocio.icon);
+            return <IconComponent size={24} />;
+          })()}
         </div>
       </div>
 
@@ -41,10 +49,10 @@ export default function BusinessCard({ negocio, userLocation, onClick }) {
 
       <div className="business-card-meta">
         {distanceData && (
-          <div className="business-card-meta-item" style={{ background: 'rgba(6,182,212,0.1)', padding: '4px 8px', borderRadius: '4px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{ fontWeight: 600, color: 'var(--primary)' }}>📍 {distanceData.distance}</span>
-            <span style={{ color: 'var(--text-secondary)' }}>🚶 {distanceData.walking}</span>
-            <span style={{ color: 'var(--text-secondary)' }}>🚗 {distanceData.driving}</span>
+          <div className="business-card-meta-item" style={{ background: 'rgba(6,182,212,0.1)', padding: '4px 8px', borderRadius: '4px', display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <span style={{ fontWeight: 600, color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={14} /> {distanceData.distance}</span>
+            <span style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}><Footprints size={14} /> {distanceData.walking}</span>
+            <span style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}><Car size={14} /> {distanceData.driving}</span>
           </div>
         )}
         {negocio.direccion && (
@@ -52,9 +60,13 @@ export default function BusinessCard({ negocio, userLocation, onClick }) {
             <span style={{ marginTop: '2px' }}>Dir:</span>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span>{negocio.direccion}</span>
-              {negocio.emoji && (
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-                  Ver ubicación en el mapa: {negocio.emoji}
+              {negocio.icon && (
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  Ver ubicación en el mapa: 
+                  {(() => {
+                    const IconComponent = getIconComponent(negocio.icon);
+                    return <IconComponent size={14} />;
+                  })()}
                 </span>
               )}
             </div>

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { getNegocios } from '@/lib/store';
+import { Bot } from 'lucide-react';
 
 export default function ChatBot({ onRecommendations, onClose, userLocation }) {
   const [messages, setMessages] = useState([
@@ -101,7 +102,7 @@ export default function ChatBot({ onRecommendations, onClose, userLocation }) {
     <div className="chat-container">
       <div className="chat-header">
         <div className="chat-header-info">
-          <div className="chat-avatar">💬</div>
+          <div className="chat-avatar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Bot size={20} /></div>
           <div>
             <h4>Barrio Guide</h4>
             <p>En línea</p>

@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { getCategoryInfo } from '@/lib/categories';
+import { renderToString } from 'react-dom/server';
+import { getIconComponent } from '@/lib/iconMap';
+import { User } from 'lucide-react';
 
 export default function MapView({ negocios, highlighted = [], userLocation, onMarkerClick, showRoute = false }) {
   const mapRef = useRef(null);
@@ -67,21 +70,26 @@ export default function MapView({ negocios, highlighted = [], userLocation, onMa
 
       // Add user location marker
       if (userLocation && userLocation.lat && userLocation.lng) {
+        const userIconSvg = renderToString(<User size={20} color="white" />);
         const userIcon = L.divIcon({
           className: 'custom-user-marker',
           html: `<div style="
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            width: 32px;
+            height: 32px;
+            background-color: #06B6D4;
+            border-radius: 50%;
+            border: 2px solid white;
             filter: drop-shadow(0 0 10px #06B6D4);
             animation: pulse 2s infinite;
-          ">👤</div>`,
+          ">${userIconSvg}</div>`,
           iconSize: [32, 32],
           iconAnchor: [16, 16],
         });
         const userMarker = L.marker([userLocation.lat, userLocation.lng], { icon: userIcon, zIndexOffset: 1000 }).addTo(map);
-        userMarker.bindPopup('<div style="font-weight:bold;color:#06B6D4;">📍 Tu ubicación</div>');
+        userMarker.bindPopup('<div style="font-weight:bold;color:#06B6D4;">Tu ubicación</div>');
         markersRef.current.push(userMarker);
         bounds.push([userLocation.lat, userLocation.lng]);
       }
@@ -97,19 +105,24 @@ export default function MapView({ negocios, highlighted = [], userLocation, onMa
         const catInfo = getCategoryInfo(negocio.categoria);
         const isHighlighted = highlighted.includes(negocio.id);
 
-        const emoji = negocio.emoji || '📍';
+        const IconComponent = getIconComponent(negocio.icon);
+        const iconSvg = renderToString(<IconComponent size={isHighlighted ? 24 : 18} color={catInfo.color || '#333'} />);
+        
         const icon = L.divIcon({
           className: 'custom-marker',
           html: `<div style="
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: ${isHighlighted ? '2.5rem' : '2rem'};
+            background-color: white;
+            border-radius: 50%;
+            width: ${isHighlighted ? '40px' : '32px'};
+            height: ${isHighlighted ? '40px' : '32px'};
+            border: 2px solid ${catInfo.color};
             filter: ${isHighlighted ? `drop-shadow(0 0 8px ${catInfo.color})` : 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'};
             transition: all 0.3s ease;
             cursor: pointer;
-            line-height: 1;
-          ">${emoji}</div>`,
+          ">${iconSvg}</div>`,
           iconSize: [isHighlighted ? 40 : 32, isHighlighted ? 40 : 32],
           iconAnchor: [isHighlighted ? 20 : 16, isHighlighted ? 20 : 16],
         });

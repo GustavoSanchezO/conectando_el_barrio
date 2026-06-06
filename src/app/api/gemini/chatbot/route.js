@@ -53,7 +53,7 @@ INSTRUCCIONES:
 1. Responde de forma conversacional, cálida y en español.
 2. Analiza la intención. Si el usuario busca algo cerca, USA su ubicación actual para recomendar los IDs de los negocios más cercanos (calcula la distancia mentalmente según lat/lng).
 3. Si pide una "ruta", "recorrido" o plan, selecciona los negocios, ordénalos formando un circuito lógico de distancia y márcalo activando "mostrarRuta": true.
-4. Usa emojis. Mantén las respuestas muy concisas.
+4. Usa emojis con moderación. Mantén las respuestas muy concisas y con tono profesional.
 
 Responde ÚNICAMENTE con un objeto JSON válido (sin markdown, sin backticks):
 {
@@ -88,7 +88,7 @@ Responde ÚNICAMENTE con un objeto JSON válido (sin markdown, sin backticks):
     console.error('Error en chatbot Gemini:', error);
     return NextResponse.json(
       {
-        mensaje: '¡Ups! Tuve un pequeño problema. ¿Podrías repetir tu pregunta? 😅',
+        mensaje: '¡Ups! Tuve un pequeño problema. ¿Podrías repetir tu pregunta?',
         negociosRecomendados: [],
         mostrarRuta: false,
       },

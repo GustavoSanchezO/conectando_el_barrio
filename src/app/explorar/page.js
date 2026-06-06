@@ -6,6 +6,8 @@ import { getNegocios, getNegociosByCategoria } from '@/lib/store';
 import { getCategoryList, getCategoryInfo } from '@/lib/categories';
 import BusinessCard from '@/components/BusinessCard';
 import ChatBot from '@/components/ChatBot';
+import { getIconComponent } from '@/lib/iconMap';
+import { MessageCircle, MapPin, Search, Navigation, Loader2 } from 'lucide-react';
 
 // Dynamic import for Leaflet (SSR incompatible)
 const MapView = dynamic(() => import('@/components/MapView'), {
@@ -101,20 +103,24 @@ export default function ExplorarPage() {
 
       {/* Search and Location */}
       <div style={{ maxWidth: '600px', margin: '0 auto var(--space-lg)', display: 'flex', gap: 'var(--space-sm)' }}>
-        <input
-          className="form-input"
-          placeholder="🔍 Buscar negocios..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ flex: 1 }}
-        />
+        <div style={{ position: 'relative', flex: 1 }}>
+          <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+          <input
+            className="form-input"
+            placeholder="Buscar negocios..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ width: '100%', paddingLeft: '38px' }}
+          />
+        </div>
         <button 
           className="btn btn-outline" 
           onClick={getUserLocation}
           disabled={isLocating}
           title="Usar mi ubicación actual"
+          style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
         >
-          {isLocating ? '⏳ Buscando...' : (userLocation ? '📍 Ubicación activa' : '📍 Usar mi ubicación')}
+          {isLocating ? <><Loader2 size={18} /> Buscando...</> : (userLocation ? <><MapPin size={18} /> Ubicación activa</> : <><Navigation size={18} /> Usar mi ubicación</>)}
         </button>
       </div>
 
@@ -212,12 +218,18 @@ export default function ExplorarPage() {
                 className="business-card-icon"
                 style={{
                   backgroundColor: `${getCategoryInfo(selectedNegocio.categoria).color}20`,
-                  fontSize: '2rem',
+                  color: getCategoryInfo(selectedNegocio.categoria).color,
                   width: '60px',
                   height: '60px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
               >
-                {selectedNegocio.emoji}
+                {(() => {
+                  const IconComponent = getIconComponent(selectedNegocio.icon);
+                  return <IconComponent size={32} />;
+                })()}
               </div>
               <div>
                 <h2 style={{ fontSize: '1.4rem', margin: 0 }}>
@@ -289,7 +301,7 @@ export default function ExplorarPage() {
               </div>
             ) : (
               <div style={{ marginTop: 'var(--space-lg)', padding: 'var(--space-md)', background: 'var(--bg-card)', borderRadius: 'var(--radius-md)', textAlign: 'center', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>
-                📍 Ubicación exacta no disponible en el mapa.
+                <MapPin size={20} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }} /> Ubicación exacta no disponible en el mapa.
               </div>
             )}
           </div>
@@ -299,7 +311,7 @@ export default function ExplorarPage() {
       {/* Chatbot Toggle */}
       {!chatOpen && (
         <button className="chat-toggle" onClick={() => setChatOpen(true)}>
-          💬
+          <MessageCircle size={28} />
         </button>
       )}
 

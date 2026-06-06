@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { Mic, Square } from 'lucide-react';
 
 export default function VoiceRecorder({ onTranscript, onStop }) {
   const [isRecording, setIsRecording] = useState(false);
@@ -142,7 +143,7 @@ export default function VoiceRecorder({ onTranscript, onStop }) {
         onClick={toggleRecording}
         aria-label={isRecording ? 'Detener grabación' : 'Iniciar grabación'}
       >
-        {isRecording ? '🛑' : '🎤'}
+        {isRecording ? <Square size={24} fill="currentColor" /> : <Mic size={24} />}
       </button>
 
       <p className={`voice-status ${isRecording ? 'recording' : ''}`}>
