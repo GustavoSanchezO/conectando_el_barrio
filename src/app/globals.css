@@ -1011,7 +1011,7 @@ select.form-input {
 
 .chat-bubble.user {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: #000;
+  color: #fff;
   align-self: flex-end;
   border-bottom-right-radius: var(--space-xs);
   font-weight: 500;
@@ -1051,7 +1051,7 @@ select.form-input {
   padding: 0.7rem 1rem;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--bg-secondary);
   color: var(--text-primary);
   outline: none;
   transition: var(--transition-fast);
@@ -1066,7 +1066,7 @@ select.form-input {
   height: 42px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: #000;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1095,7 +1095,7 @@ select.form-input {
   height: 60px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #000;
+  color: #fff;
   font-size: 1.5rem;
   display: flex;
   align-items: center;
@@ -1269,7 +1269,7 @@ select.form-input {
 .step.active .step-number {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-color: var(--primary);
-  color: #000;
+  color: #fff;
 }
 
 .step.completed .step-number {

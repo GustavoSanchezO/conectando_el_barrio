@@ -54,7 +54,7 @@ export default function HomePage() {
       </section>
 
       {/* How it works */}
-      <section className="section" style={{ background: 'rgba(15, 23, 42, 0.5)' }}>
+      <section className="section" style={{ background: 'var(--bg-primary)' }}>
         <div className="container">
           <h2 className="text-center" style={{ marginBottom: 'var(--space-sm)' }}>
             ¿Cómo funciona?
@@ -135,7 +135,7 @@ export default function HomePage() {
                   justifyContent: 'center',
                   fontSize: '1.5rem',
                   fontWeight: '800',
-                  color: '#000',
+                  color: '#fff',
                   margin: '0 auto var(--space-md)',
                   fontFamily: 'var(--font-heading)',
                 }}

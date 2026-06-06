@@ -142,7 +142,7 @@ export default function RegistrarPage() {
             style={{
               marginTop: 'var(--space-lg)',
               padding: 'var(--space-md)',
-              background: 'rgba(15, 23, 42, 0.5)',
+              background: 'var(--bg-primary)',
               borderRadius: 'var(--radius-md)',
               fontSize: '0.9rem',
               color: 'var(--text-secondary)',
