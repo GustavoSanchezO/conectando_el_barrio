@@ -116,11 +116,23 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
       // Fit bounds if we have markers
       if (bounds.length > 0) {
         try {
-          map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
+          if (bounds.length === 1) {
+            map.setView(bounds[0], 16);
+          } else {
+            map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
+          }
         } catch (e) {
           // ignore bounds error
         }
       }
+
+      // Force invalidate size after rendering (crucial for modals)
+      setTimeout(() => {
+        if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize();
+      }, 150);
+      setTimeout(() => {
+        if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize();
+      }, 500);
     };
 
     updateMarkers();

@@ -247,6 +247,16 @@ export default function ExplorarPage() {
                   </div>
                 </div>
               )}
+
+            {selectedNegocio.lat && selectedNegocio.lng ? (
+              <div className="modal-map-wrapper" style={{ marginTop: 'var(--space-lg)' }}>
+                <MapView negocios={[selectedNegocio]} />
+              </div>
+            ) : (
+              <div style={{ marginTop: 'var(--space-lg)', padding: 'var(--space-md)', background: 'var(--bg-card)', borderRadius: 'var(--radius-md)', textAlign: 'center', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>
+                📍 Ubicación exacta no disponible en el mapa.
+              </div>
+            )}
           </div>
         </div>
       )}
