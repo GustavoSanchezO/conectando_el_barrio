@@ -2,11 +2,23 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const isTransparent = pathname === '/' && !scrolled && !menuOpen;
 
   const links = [
     { href: '/', label: 'Inicio' },
@@ -15,7 +27,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isTransparent ? 'navbar-transparent' : ''}`}>
       <div className="navbar-inner">
         <Link href="/" className="navbar-logo">
           Conectando el Barrio

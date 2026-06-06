@@ -6,6 +6,7 @@ import { getNegocios } from '@/lib/store';
 
 export default function HomePage() {
   const [stats, setStats] = useState({ negocios: 0, categorias: 0 });
+  const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
     const negocios = getNegocios();
@@ -13,27 +14,45 @@ export default function HomePage() {
     setStats({ negocios: negocios.length, categorias: categorias.length });
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % 4); // 4 images
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
       <section className="hero">
+        {/* Background Carousel */}
+        <div className="hero-carousel">
+          {['artesanias.webp', 'calle_constitucion.webp', 'mercado_gomez.webp', 'plazuela.webp'].map((img, index) => (
+            <div
+              key={img}
+              className={`hero-bg-image ${currentImage === index ? 'active' : ''}`}
+              style={{ backgroundImage: `url('/referencias/${img}')` }}
+            />
+          ))}
+          <div className="hero-overlay"></div>
+        </div>
+
         <div className="hero-content">
           <div className="hero-badge">
             Hack Days 2026 Durango
           </div>
           <h1>
-            Descubre tu <span className="text-gradient">Barrio</span> como nunca antes
+            Descubre el verdadero <span className="text-gradient">Durango</span>
           </h1>
           <p>
-            El primer catálogo inteligente de comercios locales de Durango.
-            Registra tu negocio con solo hablar y descubre rutas de consumo personalizadas.
+            Explora comercios locales, encuentra experiencias auténticas y ayuda a impulsar la economía de tu comunidad mediante inteligencia artificial.
           </p>
           <div className="hero-actions">
             <Link href="/registrar" className="btn btn-primary btn-lg">
               Registrar mi Negocio
             </Link>
-            <Link href="/explorar" className="btn btn-outline btn-lg">
-              Explorar el Barrio
+            <Link href="/explorar" className="btn btn-secondary btn-lg" style={{ background: '#fff', color: '#000' }}>
+              Explorar Durango
             </Link>
           </div>
           <div className="hero-stats">
@@ -47,7 +66,7 @@ export default function HomePage() {
             </div>
             <div className="hero-stat">
               <div className="hero-stat-value">IA</div>
-              <div className="hero-stat-label">Registro con IA</div>
+              <div className="hero-stat-label">Registro Inteligente</div>
             </div>
           </div>
         </div>

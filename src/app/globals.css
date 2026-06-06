@@ -215,8 +215,20 @@ p {
   z-index: var(--z-navbar);
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
-  transition: var(--transition-base);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.navbar-transparent {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+}
+
+.navbar-transparent .navbar-logo,
+.navbar-transparent .navbar-link {
+  color: #fff !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .navbar-inner {
@@ -507,26 +519,63 @@ select.form-input {
 }
 
 /* ===== HERO ===== */
+@keyframes kenBurns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
 .hero {
-  min-height: calc(100vh - 70px);
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: var(--space-3xl) var(--space-lg);
-  margin-top: 70px;
+  margin-top: -70px; /* Offset the navbar */
   position: relative;
   overflow: hidden;
 }
 
-.hero::before {
-  display: none;
+.hero-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: #000;
+}
+
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.hero-bg-image.active {
+  opacity: 1;
+  animation: kenBurns 15s ease-out forwards;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1;
 }
 
 .hero-content {
-  max-width: 700px;
+  max-width: 800px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+}
+
+.hero h1, .hero p, .hero-stat-value, .hero-stat-label, .hero-badge {
+  color: #fff !important;
 }
 
 .hero-badge {
@@ -534,29 +583,32 @@ select.form-input {
   align-items: center;
   gap: var(--space-sm);
   padding: 0.4rem 1rem;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-full);
   font-size: 0.85rem;
-  color: var(--primary-light);
   font-weight: 500;
   margin-bottom: var(--space-xl);
   animation: fadeIn 0.6s ease;
+  backdrop-filter: blur(4px);
 }
 
 .hero h1 {
   margin-bottom: var(--space-lg);
   animation: slideUp 0.7s ease;
+  font-size: 3.5rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .hero p {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   margin-bottom: var(--space-2xl);
-  color: var(--text-secondary);
-  max-width: 550px;
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
   animation: slideUp 0.8s ease;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+  line-height: 1.6;
 }
 
 .hero-actions {
@@ -583,15 +635,15 @@ select.form-input {
 
 .hero-stat-value {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  color: var(--primary);
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
 .hero-stat-label {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
   margin-top: var(--space-xs);
+  opacity: 0.9;
 }
 
 /* ===== FEATURES SECTION ===== */
