@@ -11,6 +11,7 @@ export default function RegistrarPage() {
   const [transcript, setTranscript] = useState('');
   const [businessData, setBusinessData] = useState(null);
   const [error, setError] = useState('');
+  const [manualText, setManualText] = useState('');
 
   const handleVoiceStop = async (text) => {
     setTranscript(text);
@@ -57,6 +58,7 @@ export default function RegistrarPage() {
     setTranscript('');
     setBusinessData(null);
     setError('');
+    setManualText('');
   };
 
   return (
@@ -118,6 +120,27 @@ export default function RegistrarPage() {
               <strong>Tip:</strong> Menciona el nombre de tu negocio, qué vendes, tu dirección
               y tu horario. La IA se encargará de organizar todo.
             </p>
+          </div>
+
+          <div style={{ marginTop: 'var(--space-xl)', borderTop: '1px solid var(--border)', paddingTop: 'var(--space-lg)' }}>
+            <p className="text-small" style={{ textAlign: 'center', marginBottom: 'var(--space-md)', color: 'var(--text-muted)' }}>
+              ¿No puedes hablar ahora? Escríbelo aquí:
+            </p>
+            <textarea
+              style={{ width: '100%', minHeight: '100px', padding: 'var(--space-md)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', marginBottom: 'var(--space-md)', fontFamily: 'inherit', resize: 'vertical' }}
+              placeholder="Ej. Mi negocio se llama Tacos Don Luis, vendemos tacos de asada..."
+              value={manualText}
+              onChange={(e) => setManualText(e.target.value)}
+            />
+            <div style={{ textAlign: 'center' }}>
+              <button 
+                className="btn btn-secondary"
+                disabled={!manualText.trim()}
+                onClick={() => handleVoiceStop(manualText)}
+              >
+                Enviar texto
+              </button>
+            </div>
           </div>
         </div>
       )}
