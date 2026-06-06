@@ -18,7 +18,7 @@ export default function BusinessCard({ negocio, onClick }) {
               borderColor: `${categoryInfo.color}30`,
             }}
           >
-            {categoryInfo.emoji} {negocio.categoria}
+            {negocio.categoria}
           </span>
         </div>
         <div
@@ -28,7 +28,7 @@ export default function BusinessCard({ negocio, onClick }) {
             fontSize: '1.5rem',
           }}
         >
-          {categoryInfo.emoji}
+          
         </div>
       </div>
 
@@ -37,19 +37,19 @@ export default function BusinessCard({ negocio, onClick }) {
       <div className="business-card-meta">
         {negocio.direccion && (
           <div className="business-card-meta-item">
-            <span>📍</span>
+            <span>Dir:</span>
             <span>{negocio.direccion}</span>
           </div>
         )}
         {negocio.horario && (
           <div className="business-card-meta-item">
-            <span>🕐</span>
+            <span>Horario:</span>
             <span>{negocio.horario}</span>
           </div>
         )}
         {negocio.telefono && (
           <div className="business-card-meta-item">
-            <span>📞</span>
+            <span>Tel:</span>
             <span>{negocio.telefono}</span>
           </div>
         )}

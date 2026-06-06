@@ -99,7 +99,7 @@ export default function RegistrarPage() {
             textAlign: 'center',
           }}
         >
-          <p style={{ color: 'var(--danger)' }}>⚠️ {error}</p>
+          <p style={{ color: 'var(--danger)' }}>Error: {error}</p>
         </div>
       )}
 
@@ -115,7 +115,7 @@ export default function RegistrarPage() {
             }}
           >
             <p className="text-small" style={{ color: 'var(--text-muted)' }}>
-              💡 <strong>Tip:</strong> Menciona el nombre de tu negocio, qué vendes, tu dirección
+              <strong>Tip:</strong> Menciona el nombre de tu negocio, qué vendes, tu dirección
               y tu horario. La IA se encargará de organizar todo.
             </p>
           </div>
@@ -183,10 +183,10 @@ export default function RegistrarPage() {
               }}
             >
               <Link href="/explorar" className="btn btn-primary">
-                🗺️ Ver en el Mapa
+                Ver en el Mapa
               </Link>
               <button className="btn btn-outline" onClick={handleReset}>
-                🎤 Registrar Otro
+                Registrar Otro
               </button>
             </div>
           </div>

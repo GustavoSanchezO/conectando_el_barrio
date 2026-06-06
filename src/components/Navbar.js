@@ -10,15 +10,14 @@ export default function Navbar() {
 
   const links = [
     { href: '/', label: 'Inicio' },
-    { href: '/explorar', label: '🗺️ Explorar' },
-    { href: '/registrar', label: '🎤 Registrar' },
+    { href: '/explorar', label: 'Explorar' },
+    { href: '/registrar', label: 'Registrar' },
   ];
 
   return (
     <nav className="navbar">
       <div className="navbar-inner">
         <Link href="/" className="navbar-logo">
-          <span>🏘️</span>
           Conectando el Barrio
         </Link>
 
