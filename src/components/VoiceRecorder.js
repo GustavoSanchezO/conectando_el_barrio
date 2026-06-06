@@ -125,7 +125,6 @@ export default function VoiceRecorder({ onTranscript, onStop }) {
     return (
       <div className="voice-recorder">
         <div className="card" style={{ textAlign: 'center', maxWidth: '500px' }}>
-          <p style={{ fontSize: '2rem', marginBottom: '1rem' }}>🚫</p>
           <h3>Navegador no compatible</h3>
           <p style={{ marginTop: '0.5rem' }}>
             Tu navegador no soporta reconocimiento de voz. Por favor usa{' '}
@@ -143,12 +142,12 @@ export default function VoiceRecorder({ onTranscript, onStop }) {
         onClick={toggleRecording}
         aria-label={isRecording ? 'Detener grabación' : 'Iniciar grabación'}
       >
-        {isRecording ? '⏹' : '🎤'}
+        {isRecording ? 'Detener' : 'Grabar'}
       </button>
 
       <p className={`voice-status ${isRecording ? 'recording' : ''}`}>
         {isRecording
-          ? '🔴 Escuchando... Describe tu negocio'
+          ? 'Escuchando... Describe tu negocio'
           : fullTranscript
             ? 'Grabación completada. Puedes grabar de nuevo o continuar.'
             : 'Presiona el micrófono y describe tu negocio'}

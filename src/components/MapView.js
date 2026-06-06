@@ -89,7 +89,7 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
             box-shadow: 0 2px 8px rgba(0,0,0,0.4)${isHighlighted ? `, 0 0 15px ${catInfo.color}60` : ''};
             transition: all 0.3s ease;
             cursor: pointer;
-          ">${catInfo.emoji}</div>`,
+          "></div>`,
           iconSize: [isHighlighted ? 42 : 36, isHighlighted ? 42 : 36],
           iconAnchor: [isHighlighted ? 21 : 18, isHighlighted ? 21 : 18],
         });
@@ -99,9 +99,9 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
         marker.bindPopup(`
           <div>
             <div class="map-popup-title">${negocio.nombre}</div>
-            <div class="map-popup-category">${catInfo.emoji} ${negocio.categoria}</div>
+            <div class="map-popup-category">${negocio.categoria}</div>
             <div class="map-popup-desc">${negocio.descripcion || ''}</div>
-            ${negocio.horario ? `<div style="font-size:0.8rem;margin-top:6px;color:#94A3B8">🕐 ${negocio.horario}</div>` : ''}
+            ${negocio.horario ? `<div style="font-size:0.8rem;margin-top:6px;color:#94A3B8">Horario: ${negocio.horario}</div>` : ''}
           </div>
         `);
 

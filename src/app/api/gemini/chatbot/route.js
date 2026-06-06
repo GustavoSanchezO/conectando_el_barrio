@@ -63,7 +63,7 @@ Responde ÚNICAMENTE con un objeto JSON válido (sin markdown, sin backticks):
 - mostrarRuta: true si el usuario pidió una ruta o recorrido`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-2.5-flash',
       contents: prompt,
     });
 

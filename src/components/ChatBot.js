@@ -8,7 +8,7 @@ export default function ChatBot({ onRecommendations, onClose }) {
     {
       role: 'bot',
       content:
-        '¡Hola! 👋 Soy tu guía virtual de Durango. ¿Qué te gustaría descubrir hoy? Puedo recomendarte lugares para comer, artesanías, cafés, o crear una ruta personalizada para ti. 🏘️',
+        '¡Hola! Soy tu guía virtual de Durango. ¿Qué te gustaría descubrir hoy? Puedo recomendarte lugares para comer, artesanías, cafés, o crear una ruta personalizada para ti.',
     },
   ]);
   const [input, setInput] = useState('');
@@ -75,7 +75,7 @@ export default function ChatBot({ onRecommendations, onClose }) {
         ...prev,
         {
           role: 'bot',
-          content: '¡Ups! Tuve un problema. ¿Podrías intentar de nuevo? 😅',
+          content: '¡Ups! Tuve un problema. ¿Podrías intentar de nuevo?',
         },
       ]);
     }
@@ -100,7 +100,7 @@ export default function ChatBot({ onRecommendations, onClose }) {
     <div className="chat-container">
       <div className="chat-header">
         <div className="chat-header-info">
-          <div className="chat-avatar">🏘️</div>
+          <div className="chat-avatar">G</div>
           <div>
             <h4>Barrio Guide</h4>
             <p>En línea</p>
@@ -129,7 +129,7 @@ export default function ChatBot({ onRecommendations, onClose }) {
                   if (!n) return null;
                   return (
                     <div key={id} className="chat-recommendation">
-                      📍 <strong>{n.nombre}</strong> — {n.categoria}
+                      <strong>{n.nombre}</strong> — {n.categoria}
                     </div>
                   );
                 })}

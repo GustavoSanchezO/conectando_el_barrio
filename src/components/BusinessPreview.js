@@ -50,7 +50,7 @@ export default function BusinessPreview({ datos, onConfirm, onCancel }) {
             className="business-card-icon"
             style={{ backgroundColor: `${categoryInfo.color}20`, fontSize: '1.8rem' }}
           >
-            {categoryInfo.emoji}
+            
           </div>
           <div>
             <h3 style={{ margin: 0 }}>Vista previa del negocio</h3>
@@ -77,7 +77,7 @@ export default function BusinessPreview({ datos, onConfirm, onCancel }) {
           >
             {getCategoryList().map((cat) => (
               <option key={cat.name} value={cat.name}>
-                {cat.emoji} {cat.name}
+                {cat.name}
               </option>
             ))}
           </select>

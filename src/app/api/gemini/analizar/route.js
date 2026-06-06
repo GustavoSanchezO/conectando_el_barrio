@@ -50,7 +50,7 @@ Reglas:
 - Responde SOLO con el JSON, sin texto adicional, sin markdown, sin backticks.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-2.5-flash',
       contents: prompt,
     });
 

@@ -19,7 +19,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-content">
           <div className="hero-badge">
-            <span>🏆</span> Hack Days 2026 Durango
+            Hack Days 2026 Durango
           </div>
           <h1>
             Descubre tu <span className="text-gradient">Barrio</span> como nunca antes
@@ -30,10 +30,10 @@ export default function HomePage() {
           </p>
           <div className="hero-actions">
             <Link href="/registrar" className="btn btn-primary btn-lg">
-              🎤 Registrar mi Negocio
+              Registrar mi Negocio
             </Link>
             <Link href="/explorar" className="btn btn-outline btn-lg">
-              🗺️ Explorar el Barrio
+              Explorar el Barrio
             </Link>
           </div>
           <div className="hero-stats">
@@ -46,7 +46,7 @@ export default function HomePage() {
               <div className="hero-stat-label">Categorías</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">⚡</div>
+              <div className="hero-stat-value">IA</div>
               <div className="hero-stat-label">Registro con IA</div>
             </div>
           </div>
@@ -65,7 +65,6 @@ export default function HomePage() {
 
           <div className="features-grid">
             <div className="card feature-card">
-              <span className="feature-icon">🎤</span>
               <h3>Para Comerciantes</h3>
               <p>
                 Presiona un botón, describe tu negocio hablando naturalmente y nuestra IA genera automáticamente tu ficha comercial.
@@ -81,7 +80,6 @@ export default function HomePage() {
             </div>
 
             <div className="card feature-card">
-              <span className="feature-icon">💬</span>
               <h3>Para Visitantes</h3>
               <p>
                 Chatea con nuestro guía virtual, cuéntale qué buscas y recibe recomendaciones personalizadas con rutas
@@ -97,7 +95,6 @@ export default function HomePage() {
             </div>
 
             <div className="card feature-card">
-              <span className="feature-icon">🗺️</span>
               <h3>Mapa Interactivo</h3>
               <p>
                 Visualiza todos los comercios del barrio en un mapa, filtra por categoría y descubre
@@ -195,7 +192,7 @@ export default function HomePage() {
 
           <div className="text-center" style={{ marginTop: 'var(--space-2xl)' }}>
             <Link href="/registrar" className="btn btn-primary btn-lg">
-              🎤 Comenzar Registro
+              Comenzar Registro
             </Link>
           </div>
         </div>
@@ -210,13 +207,13 @@ export default function HomePage() {
         }}
       >
         <p className="text-small" style={{ color: 'var(--text-muted)' }}>
-          🏘️ Conectando el Barrio — Hack Days 2026 Durango
+          Conectando el Barrio — Hack Days 2026 Durango
         </p>
         <p
           className="text-small"
           style={{ color: 'var(--text-muted)', marginTop: 'var(--space-xs)' }}
         >
-          Hecho con ❤️ para impulsar el comercio local
+          Hecho para impulsar el comercio local
         </p>
       </footer>
     </>
