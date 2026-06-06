@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getCategoryInfo } from '@/lib/categories';
 
-export default function MapView({ negocios, highlighted = [], onMarkerClick, showRoute = false }) {
+export default function MapView({ negocios, highlighted = [], userLocation, onMarkerClick, showRoute = false }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const markersRef = useRef([]);
@@ -26,8 +26,8 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
         zoomControl: true,
       });
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         maxZoom: 19,
       }).addTo(map);
 
@@ -63,9 +63,33 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
       markersRef.current.forEach((m) => map.removeLayer(m));
       markersRef.current = [];
 
-      if (!negocios || negocios.length === 0) return;
-
       const bounds = [];
+
+      // Add user location marker
+      if (userLocation && userLocation.lat && userLocation.lng) {
+        const userIcon = L.divIcon({
+          className: 'custom-user-marker',
+          html: `<div style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            filter: drop-shadow(0 0 10px #06B6D4);
+            animation: pulse 2s infinite;
+          ">👤</div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16],
+        });
+        const userMarker = L.marker([userLocation.lat, userLocation.lng], { icon: userIcon, zIndexOffset: 1000 }).addTo(map);
+        userMarker.bindPopup('<div style="font-weight:bold;color:#06B6D4;">📍 Tu ubicación</div>');
+        markersRef.current.push(userMarker);
+        bounds.push([userLocation.lat, userLocation.lng]);
+      }
+
+      if (!negocios || negocios.length === 0) {
+        if (bounds.length > 0) map.setView(bounds[0], 15);
+        return;
+      }
 
       negocios.forEach((negocio) => {
         if (!negocio.lat || !negocio.lng) return;
@@ -132,7 +156,7 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
     };
 
     updateMarkers();
-  }, [negocios, highlighted, mapReady, onMarkerClick]);
+  }, [negocios, highlighted, userLocation, mapReady, onMarkerClick]);
 
   // Draw route if enabled
   useEffect(() => {
@@ -147,26 +171,57 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
         map.removeLayer(routeLayerRef.current);
       }
 
-      if (!highlighted || highlighted.length < 2) return;
+      if (!highlighted || highlighted.length === 0) return;
 
       const routePoints = highlighted
         .map((id) => negocios.find((n) => n.id === id))
         .filter((n) => n && n.lat && n.lng)
         .map((n) => [n.lat, n.lng]);
 
+      if (userLocation && userLocation.lat && userLocation.lng && routePoints.length > 0) {
+        routePoints.unshift([userLocation.lat, userLocation.lng]);
+      }
+
       if (routePoints.length < 2) return;
 
-      routeLayerRef.current = L.polyline(routePoints, {
-        color: '#F59E0B',
-        weight: 3,
-        opacity: 0.8,
-        dashArray: '10, 10',
-        lineCap: 'round',
-      }).addTo(map);
+      try {
+        const coordsString = routePoints.map(p => `${p[1]},${p[0]}`).join(';');
+        const response = await fetch(`https://router.project-osrm.org/route/v1/driving/${coordsString}?overview=full&geometries=geojson`);
+        const data = await response.json();
+
+        if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
+          const routeGeoJSON = data.routes[0].geometry;
+
+          routeLayerRef.current = L.geoJSON(routeGeoJSON, {
+            style: {
+              color: '#2563EB',
+              weight: 5,
+              opacity: 0.85,
+              lineCap: 'round',
+              lineJoin: 'round'
+            }
+          }).addTo(map);
+
+          map.fitBounds(routeLayerRef.current.getBounds(), { padding: [50, 50] });
+        } else {
+          throw new Error('OSRM Failed');
+        }
+      } catch (err) {
+        // Fallback to straight line
+        routeLayerRef.current = L.polyline(routePoints, {
+          color: '#2563EB',
+          weight: 4,
+          opacity: 0.8,
+          dashArray: '8, 8',
+          lineCap: 'round',
+        }).addTo(map);
+        
+        map.fitBounds(routeLayerRef.current.getBounds(), { padding: [50, 50] });
+      }
     };
 
     drawRoute();
-  }, [highlighted, showRoute, negocios, mapReady]);
+  }, [highlighted, showRoute, negocios, userLocation, mapReady]);
 
   return (
     <div className="map-container">

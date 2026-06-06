@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
-    const { mensaje, historial, negocios } = await request.json();
+    const { mensaje, historial, negocios, userLocation } = await request.json();
 
     if (!mensaje || mensaje.trim().length === 0) {
       return NextResponse.json(
@@ -26,41 +26,44 @@ export async function POST(request) {
     const negociosContext = (negocios || [])
       .map(
         (n) =>
-          `- ID: ${n.id} | ${n.nombre} (${n.categoria}) — ${n.descripcion}. Dirección: ${n.direccion || 'No disponible'}. Horario: ${n.horario || 'No disponible'}. Productos: ${(n.productos || []).join(', ')}.`
+          `- ID: ${n.id} | ${n.nombre} (${n.categoria}) — Lat: ${n.lat}, Lng: ${n.lng}. ${n.descripcion}.`
       )
       .join('\n');
 
     // Build conversation history
     const historialText = (historial || [])
-      .slice(-6) // Last 6 messages for context
+      .slice(-6)
       .map((h) => `${h.role === 'user' ? 'Visitante' : 'Guía'}: ${h.content}`)
       .join('\n');
 
-    const prompt = `Eres "Barrio Guide", un guía turístico virtual de Durango, México. Eres amigable, entusiasta y conocedor de la cultura duranguense.
+    const userLocText = userLocation
+      ? `\nUBICACIÓN ACTUAL DEL VISITANTE: Lat ${userLocation.lat}, Lng ${userLocation.lng}. ¡Prioriza negocios cercanos y calcula distancias aproximadas en tu respuesta si es útil!`
+      : '';
+
+    const prompt = `Eres "Barrio Guide", un asistente turístico de Inteligencia Artificial para Durango, México. Eres capaz de generar rutas inteligentes y optimizadas.
 
 NEGOCIOS LOCALES REGISTRADOS:
 ${negociosContext || 'No hay negocios registrados aún.'}
+${userLocText}
 
 ${historialText ? `CONVERSACIÓN PREVIA:\n${historialText}\n` : ''}
 MENSAJE DEL VISITANTE: "${mensaje}"
 
 INSTRUCCIONES:
 1. Responde de forma conversacional, cálida y en español.
-2. Si el visitante pregunta por comida, lugares, servicios o actividades, recomienda negocios ESPECÍFICOS de la lista.
-3. Si pide una ruta o recorrido, sugiere un orden lógico de visita entre los negocios relevantes.
-4. Si no hay negocios relevantes, sugiere de todas formas pero menciona que el catálogo está creciendo.
-5. Usa emojis ocasionalmente para ser más amigable.
-6. Mantén las respuestas concisas (máximo 3-4 oraciones).
+2. Analiza la intención. Si el usuario busca algo cerca, USA su ubicación actual para recomendar los IDs de los negocios más cercanos (calcula la distancia mentalmente según lat/lng).
+3. Si pide una "ruta", "recorrido" o plan, selecciona los negocios, ordénalos formando un circuito lógico de distancia y márcalo activando "mostrarRuta": true.
+4. Usa emojis. Mantén las respuestas muy concisas.
 
 Responde ÚNICAMENTE con un objeto JSON válido (sin markdown, sin backticks):
 {
   "mensaje": "tu respuesta conversacional aquí",
   "negociosRecomendados": ["id1", "id2"],
-  "mostrarRuta": false
+  "mostrarRuta": true
 }
 
-- negociosRecomendados: array de IDs de negocios que recomiendas (vacío si no aplica)
-- mostrarRuta: true si el usuario pidió una ruta o recorrido`;
+- negociosRecomendados: array de IDs ordenados por cercanía o secuencia de ruta.
+- mostrarRuta: true si el visitante pidió un recorrido o ruta, false si solo es una pregunta.`;
 
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',

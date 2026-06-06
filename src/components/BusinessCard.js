@@ -1,9 +1,14 @@
 'use client';
 
 import { getCategoryInfo } from '@/lib/categories';
+import { getDistanceInfo } from '@/lib/geo';
 
-export default function BusinessCard({ negocio, onClick }) {
+export default function BusinessCard({ negocio, userLocation, onClick }) {
   const categoryInfo = getCategoryInfo(negocio.categoria);
+  
+  const distanceData = userLocation && negocio.lat && negocio.lng 
+    ? getDistanceInfo(userLocation.lat, userLocation.lng, negocio.lat, negocio.lng)
+    : null;
 
   return (
     <div className="business-card" onClick={() => onClick && onClick(negocio)}>
@@ -35,6 +40,13 @@ export default function BusinessCard({ negocio, onClick }) {
       <p className="business-card-desc">{negocio.descripcion}</p>
 
       <div className="business-card-meta">
+        {distanceData && (
+          <div className="business-card-meta-item" style={{ background: 'rgba(6,182,212,0.1)', padding: '4px 8px', borderRadius: '4px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <span style={{ fontWeight: 600, color: 'var(--primary)' }}>📍 {distanceData.distance}</span>
+            <span style={{ color: 'var(--text-secondary)' }}>🚶 {distanceData.walking}</span>
+            <span style={{ color: 'var(--text-secondary)' }}>🚗 {distanceData.driving}</span>
+          </div>
+        )}
         {negocio.direccion && (
           <div className="business-card-meta-item" style={{ alignItems: 'flex-start' }}>
             <span style={{ marginTop: '2px' }}>Dir:</span>

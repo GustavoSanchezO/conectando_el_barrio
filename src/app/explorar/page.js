@@ -33,6 +33,31 @@ export default function ExplorarPage() {
   const [highlighted, setHighlighted] = useState([]);
   const [showRoute, setShowRoute] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [userLocation, setUserLocation] = useState(null);
+  const [isLocating, setIsLocating] = useState(false);
+
+  const getUserLocation = () => {
+    setIsLocating(true);
+    if (!navigator.geolocation) {
+      alert('Tu navegador no soporta geolocalización.');
+      setIsLocating(false);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+        setIsLocating(false);
+      },
+      (error) => {
+        console.error('Error getting location:', error);
+        alert('No se pudo obtener tu ubicación. Por favor permite el acceso.');
+        setIsLocating(false);
+      }
+    );
+  };
 
   useEffect(() => {
     const data = getNegocios();
@@ -56,6 +81,8 @@ export default function ExplorarPage() {
 
   const handleMarkerClick = useCallback((negocio) => {
     setSelectedNegocio(negocio);
+    setHighlighted([negocio.id]);
+    setShowRoute(true);
   }, []);
 
   const handleChatRecommendations = useCallback((ids, showRouteFlag) => {
@@ -72,15 +99,23 @@ export default function ExplorarPage() {
         <p>Descubre los negocios locales de tu barrio en el mapa</p>
       </div>
 
-      {/* Search */}
-      <div style={{ maxWidth: '500px', margin: '0 auto var(--space-lg)' }}>
+      {/* Search and Location */}
+      <div style={{ maxWidth: '600px', margin: '0 auto var(--space-lg)', display: 'flex', gap: 'var(--space-sm)' }}>
         <input
           className="form-input"
           placeholder="🔍 Buscar negocios..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ width: '100%' }}
+          style={{ flex: 1 }}
         />
+        <button 
+          className="btn btn-outline" 
+          onClick={getUserLocation}
+          disabled={isLocating}
+          title="Usar mi ubicación actual"
+        >
+          {isLocating ? '⏳ Buscando...' : (userLocation ? '📍 Ubicación activa' : '📍 Usar mi ubicación')}
+        </button>
       </div>
 
       {/* Category filters */}
@@ -123,6 +158,7 @@ export default function ExplorarPage() {
             negocios={filteredNegocios}
             highlighted={highlighted}
             showRoute={showRoute}
+            userLocation={userLocation}
             onMarkerClick={handleMarkerClick}
           />
           {highlighted.length > 0 && (
@@ -272,6 +308,7 @@ export default function ExplorarPage() {
         <ChatBot
           onRecommendations={handleChatRecommendations}
           onClose={() => setChatOpen(false)}
+          userLocation={userLocation}
         />
       )}
     </div>

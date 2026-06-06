@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { getNegocios } from '@/lib/store';
 
-export default function ChatBot({ onRecommendations, onClose }) {
+export default function ChatBot({ onRecommendations, onClose, userLocation }) {
   const [messages, setMessages] = useState([
     {
       role: 'bot',
@@ -47,6 +47,7 @@ export default function ChatBot({ onRecommendations, onClose }) {
           mensaje: texto,
           historial,
           negocios,
+          userLocation,
         }),
       });
 
@@ -122,7 +123,7 @@ export default function ChatBot({ onRecommendations, onClose }) {
               {msg.content}
             </div>
             {msg.negociosRecomendados && msg.negociosRecomendados.length > 0 && (
-              <div className="chat-recommendations">
+              <div className="chat-recommendations" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {msg.negociosRecomendados.map((id) => {
                   const negocios = getNegocios();
                   const n = negocios.find((neg) => neg.id === id);
@@ -133,6 +134,13 @@ export default function ChatBot({ onRecommendations, onClose }) {
                     </div>
                   );
                 })}
+                <button 
+                  className="btn btn-primary btn-sm" 
+                  style={{ width: '100%', marginTop: '4px' }}
+                  onClick={() => onRecommendations && onRecommendations(msg.negociosRecomendados, true)}
+                >
+                  🗺️ Mostrar ruta
+                </button>
               </div>
             )}
           </div>
