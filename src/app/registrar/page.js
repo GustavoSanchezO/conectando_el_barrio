@@ -76,17 +76,17 @@ export default function RegistrarPage() {
       <div className="steps">
         <div className={`step ${step === 'record' ? 'active' : ['analyzing', 'preview', 'success'].includes(step) ? 'completed' : ''}`}>
           <div className="step-number">{['analyzing', 'preview', 'success'].includes(step) ? '✓' : '1'}</div>
-          <span className="step-label">Hablar</span>
+          <span className="step-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>Hablar</span>
         </div>
         <div className={`step-connector ${['preview', 'success'].includes(step) ? 'completed' : ''}`}></div>
         <div className={`step ${step === 'analyzing' ? 'active' : ['preview', 'success'].includes(step) ? 'completed' : ''}`}>
           <div className="step-number">{['preview', 'success'].includes(step) ? '✓' : '2'}</div>
-          <span className="step-label">Analizar</span>
+          <span className="step-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>Analizar</span>
         </div>
         <div className={`step-connector ${step === 'success' ? 'completed' : ''}`}></div>
         <div className={`step ${step === 'preview' ? 'active' : step === 'success' ? 'completed' : ''}`}>
           <div className="step-number">{step === 'success' ? '✓' : '3'}</div>
-          <span className="step-label">Confirmar</span>
+          <span className="step-label" style={{ fontSize: '1.1rem', fontWeight: '600' }}>Confirmar</span>
         </div>
       </div>
 
@@ -116,18 +116,19 @@ export default function RegistrarPage() {
               padding: '0 var(--space-lg)',
             }}
           >
-            <p className="text-small" style={{ color: 'var(--text-muted)' }}>
+            <p style={{ color: 'var(--text-primary)', fontSize: '1.15rem', lineHeight: '1.6' }}>
               <strong>Tip:</strong> Menciona el nombre de tu negocio, qué vendes, tu dirección
               y tu horario. La IA se encargará de organizar todo.
             </p>
           </div>
 
           <div style={{ marginTop: 'var(--space-xl)', borderTop: '1px solid var(--border)', paddingTop: 'var(--space-lg)' }}>
-            <p className="text-small" style={{ textAlign: 'center', marginBottom: 'var(--space-md)', color: 'var(--text-muted)' }}>
+            <p style={{ textAlign: 'center', marginBottom: 'var(--space-md)', color: 'var(--text-primary)', fontSize: '1.25rem', fontWeight: '500' }}>
               ¿No puedes hablar ahora? Escríbelo aquí:
             </p>
             <textarea
-              style={{ width: '100%', minHeight: '100px', padding: 'var(--space-md)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', marginBottom: 'var(--space-md)', fontFamily: 'inherit', resize: 'vertical' }}
+              className="high-contrast-placeholder"
+              style={{ width: '100%', minHeight: '100px', padding: 'var(--space-md)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', marginBottom: 'var(--space-md)', fontFamily: 'inherit', resize: 'vertical', fontSize: '1.15rem', color: 'var(--text-primary)', backgroundColor: 'var(--bg-secondary)' }}
               placeholder="Ej. Mi negocio se llama Tacos Don Luis, vendemos tacos de asada..."
               value={manualText}
               onChange={(e) => setManualText(e.target.value)}

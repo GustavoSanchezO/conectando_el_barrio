@@ -1568,3 +1568,8 @@ select.form-input {
     grid-template-columns: 1fr;
   }
 }
+
+.high-contrast-placeholder::placeholder {
+  color: #94A3B8; /* Slate-400 for better visibility than default */
+  opacity: 1;
+}

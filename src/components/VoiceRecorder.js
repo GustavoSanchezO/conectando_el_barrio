@@ -146,7 +146,10 @@ export default function VoiceRecorder({ onTranscript, onStop }) {
         {isRecording ? <Square size={24} fill="currentColor" /> : <Mic size={24} />}
       </button>
 
-      <p className={`voice-status ${isRecording ? 'recording' : ''}`}>
+      <p 
+        className={`voice-status ${isRecording ? 'recording' : ''}`}
+        style={{ fontSize: '1.35rem', fontWeight: '600', lineHeight: 1.4 }}
+      >
         {isRecording
           ? 'Escuchando... Describe tu negocio'
           : fullTranscript
