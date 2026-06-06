@@ -23,7 +23,6 @@ export default function Navbar() {
   const links = [
     { href: '/', label: 'Inicio' },
     { href: '/explorar', label: 'Explorar' },
-    { href: '/registrar', label: 'Registrar' },
   ];
 
   return (
