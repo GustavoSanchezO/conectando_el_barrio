@@ -263,7 +263,7 @@ export default function ExplorarPage() {
       {/* Chatbot Toggle */}
       {!chatOpen && (
         <button className="chat-toggle" onClick={() => setChatOpen(true)}>
-          Chat
+          💬
         </button>
       )}
 

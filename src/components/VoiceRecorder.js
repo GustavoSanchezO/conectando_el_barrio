@@ -142,7 +142,7 @@ export default function VoiceRecorder({ onTranscript, onStop }) {
         onClick={toggleRecording}
         aria-label={isRecording ? 'Detener grabación' : 'Iniciar grabación'}
       >
-        {isRecording ? 'Detener' : 'Grabar'}
+        {isRecording ? '🛑' : '🎤'}
       </button>
 
       <p className={`voice-status ${isRecording ? 'recording' : ''}`}>

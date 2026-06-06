@@ -100,7 +100,7 @@ export default function ChatBot({ onRecommendations, onClose }) {
     <div className="chat-container">
       <div className="chat-header">
         <div className="chat-header-info">
-          <div className="chat-avatar">G</div>
+          <div className="chat-avatar">💬</div>
           <div>
             <h4>Barrio Guide</h4>
             <p>En línea</p>
