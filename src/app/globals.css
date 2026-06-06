@@ -869,9 +869,9 @@ select.form-input {
   z-index: 1; /* Fix internal map z-index leaking */
 }
 
-/* Base map tiles to grayscale */
+/* Base map tiles to grayscale removed to restore color */
 .leaflet-tile-pane, .leaflet-control-zoom {
-  filter: grayscale(100%);
+  /* filter: grayscale(100%); */
 }
 
 /* Modal map container */
