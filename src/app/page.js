@@ -42,7 +42,7 @@ export default function HomePage() {
             Hack Days 2026 Durango
           </div>
           <h1>
-            Descubre el verdadero <span className="text-gradient">Durango</span>
+            Descubre el verdadero <span style={{ color: '#ffffff' }}>Durango</span>
           </h1>
           <p>
             Explora comercios locales, encuentra experiencias auténticas y ayuda a impulsar la economía de tu comunidad mediante inteligencia artificial.
@@ -92,7 +92,7 @@ export default function HomePage() {
               <Link
                 href="/registrar"
                 className="btn btn-primary btn-sm"
-                style={{ marginTop: 'var(--space-md)' }}
+                style={{ marginTop: 'var(--space-md)', backgroundColor: '#C86452', borderColor: '#C86452', color: '#fff' }}
               >
                 Registrar Negocio
               </Link>
@@ -107,7 +107,7 @@ export default function HomePage() {
               <Link
                 href="/explorar"
                 className="btn btn-secondary btn-sm"
-                style={{ marginTop: 'var(--space-md)' }}
+                style={{ marginTop: 'var(--space-md)', backgroundColor: '#7D937C', borderColor: '#7D937C', color: '#fff' }}
               >
                 Explorar Durango
               </Link>
@@ -122,7 +122,7 @@ export default function HomePage() {
               <Link
                 href="/explorar"
                 className="btn btn-outline btn-sm"
-                style={{ marginTop: 'var(--space-md)' }}
+                style={{ marginTop: 'var(--space-md)', backgroundColor: '#7D937C', borderColor: '#7D937C', color: '#fff' }}
               >
                 Ver Mapa
               </Link>
@@ -145,7 +145,7 @@ export default function HomePage() {
                   width: '60px',
                   height: '60px',
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))',
+                  background: '#C86452',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -168,7 +168,7 @@ export default function HomePage() {
                   width: '60px',
                   height: '60px',
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--accent), var(--accent-light))',
+                  background: '#D99450',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -191,7 +191,7 @@ export default function HomePage() {
                   width: '60px',
                   height: '60px',
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--secondary), var(--secondary-dark))',
+                  background: '#7D937C',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -210,7 +210,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center" style={{ marginTop: 'var(--space-2xl)' }}>
-            <Link href="/registrar" className="btn btn-primary btn-lg">
+            <Link href="/registrar" className="btn btn-primary btn-lg" style={{ backgroundColor: '#C86452', borderColor: '#C86452', color: '#fff' }}>
               Comenzar Registro
             </Link>
           </div>
