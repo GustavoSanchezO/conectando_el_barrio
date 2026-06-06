@@ -11,7 +11,14 @@ function getStore() {
     return [...SEED_NEGOCIOS];
   }
   try {
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    return parsed.map(n => {
+      if (!n.emoji) {
+        const seed = SEED_NEGOCIOS.find(s => s.id === n.id);
+        if (seed && seed.emoji) n.emoji = seed.emoji;
+      }
+      return n;
+    });
   } catch {
     return [];
   }
