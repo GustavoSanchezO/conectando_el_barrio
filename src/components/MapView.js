@@ -73,25 +73,21 @@ export default function MapView({ negocios, highlighted = [], onMarkerClick, sho
         const catInfo = getCategoryInfo(negocio.categoria);
         const isHighlighted = highlighted.includes(negocio.id);
 
-        // Create custom icon
+        const emoji = negocio.emoji || '📍';
         const icon = L.divIcon({
           className: 'custom-marker',
           html: `<div style="
-            width: ${isHighlighted ? '42px' : '36px'};
-            height: ${isHighlighted ? '42px' : '36px'};
-            border-radius: 50%;
-            background: ${isHighlighted ? catInfo.color : 'rgba(30, 41, 59, 0.9)'};
-            border: 2.5px solid ${catInfo.color};
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: ${isHighlighted ? '1.3rem' : '1.1rem'};
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4)${isHighlighted ? `, 0 0 15px ${catInfo.color}60` : ''};
+            font-size: ${isHighlighted ? '2.5rem' : '2rem'};
+            filter: ${isHighlighted ? `drop-shadow(0 0 8px ${catInfo.color})` : 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'};
             transition: all 0.3s ease;
             cursor: pointer;
-          "></div>`,
-          iconSize: [isHighlighted ? 42 : 36, isHighlighted ? 42 : 36],
-          iconAnchor: [isHighlighted ? 21 : 18, isHighlighted ? 21 : 18],
+            line-height: 1;
+          ">${emoji}</div>`,
+          iconSize: [isHighlighted ? 40 : 32, isHighlighted ? 40 : 32],
+          iconAnchor: [isHighlighted ? 20 : 16, isHighlighted ? 20 : 16],
         });
 
         const marker = L.marker([negocio.lat, negocio.lng], { icon }).addTo(map);

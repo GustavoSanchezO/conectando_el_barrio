@@ -28,7 +28,7 @@ export default function BusinessCard({ negocio, onClick }) {
             fontSize: '1.5rem',
           }}
         >
-          
+          {negocio.emoji}
         </div>
       </div>
 
@@ -36,9 +36,16 @@ export default function BusinessCard({ negocio, onClick }) {
 
       <div className="business-card-meta">
         {negocio.direccion && (
-          <div className="business-card-meta-item">
-            <span>Dir:</span>
-            <span>{negocio.direccion}</span>
+          <div className="business-card-meta-item" style={{ alignItems: 'flex-start' }}>
+            <span style={{ marginTop: '2px' }}>Dir:</span>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span>{negocio.direccion}</span>
+              {negocio.emoji && (
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                  Ver ubicación en el mapa: {negocio.emoji}
+                </span>
+              )}
+            </div>
           </div>
         )}
         {negocio.horario && (
