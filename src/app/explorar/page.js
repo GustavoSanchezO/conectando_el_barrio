@@ -181,7 +181,7 @@ export default function ExplorarPage() {
                   height: '60px',
                 }}
               >
-                {getCategoryInfo(selectedNegocio.categoria).emoji}
+                {selectedNegocio.emoji}
               </div>
               <div>
                 <h2 style={{ fontSize: '1.4rem', margin: 0 }}>
@@ -195,7 +195,6 @@ export default function ExplorarPage() {
                     marginTop: '4px',
                   }}
                 >
-                  {getCategoryInfo(selectedNegocio.categoria).emoji}{' '}
                   {selectedNegocio.categoria}
                 </span>
               </div>
