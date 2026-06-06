@@ -1,12 +1,12 @@
 export const CATEGORIES = {
-  'Comida': { emoji: '', color: '#EF4444' },
-  'Cafetería': { emoji: '', color: '#8B5CF6' },
-  'Artesanías': { emoji: '', color: '#F59E0B' },
-  'Servicios': { emoji: '', color: '#3B82F6' },
-  'Comercio': { emoji: '', color: '#10B981' },
-  'Bar/Bebidas': { emoji: '', color: '#EC4899' },
-  'Panadería': { emoji: '', color: '#D97706' },
-  'Otro': { emoji: '', color: '#6B7280' },
+  'Comida': { emoji: '', color: '#333333' },
+  'Cafetería': { emoji: '', color: '#444444' },
+  'Artesanías': { emoji: '', color: '#555555' },
+  'Servicios': { emoji: '', color: '#666666' },
+  'Comercio': { emoji: '', color: '#777777' },
+  'Bar/Bebidas': { emoji: '', color: '#888888' },
+  'Panadería': { emoji: '', color: '#999999' },
+  'Otro': { emoji: '', color: '#AAAAAA' },
 };
 
 export function getCategoryInfo(categoria) {

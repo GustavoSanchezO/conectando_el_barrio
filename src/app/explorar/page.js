@@ -76,7 +76,7 @@ export default function ExplorarPage() {
       <div style={{ maxWidth: '500px', margin: '0 auto var(--space-lg)' }}>
         <input
           className="form-input"
-          placeholder="Buscar negocios..."
+          placeholder="🔍 Buscar negocios..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{ width: '100%' }}

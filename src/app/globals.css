@@ -2,35 +2,35 @@
 
 /* ===== CSS CUSTOM PROPERTIES ===== */
 :root {
-  /* Colors - Paleta de Gobierno del Estado de Durango */
-  --primary: #21618C; /* Azul institucional */
-  --primary-light: #3498DB;
-  --primary-dark: #154360;
-  --primary-glow: rgba(52, 152, 219, 0.3);
+  /* Colors - Monocromático (Grises, Blancos y Negros) */
+  --primary: #444444; /* Gris oscuro para elementos principales */
+  --primary-light: #666666;
+  --primary-dark: #222222;
+  --primary-glow: rgba(0, 0, 0, 0.1);
 
-  --secondary: #C0392B; /* Rojo institucional */
-  --secondary-light: #E74C3C;
-  --secondary-dark: #922B21;
+  --secondary: #666666; /* Gris medio */
+  --secondary-light: #888888;
+  --secondary-dark: #444444;
 
-  --accent: #F1C40F; /* Amarillo logo */
-  --accent-light: #F7DC6F;
+  --accent: #888888; /* Gris claro para acentos */
+  --accent-light: #AAAAAA;
 
-  --bg-primary: #F8F9FA; /* Fondo general claro */
-  --bg-secondary: #FFFFFF; /* Fondo blanco puro */
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: rgba(255, 255, 255, 1);
-  --bg-surface: #61666A; /* Gris oscuro para footers como en la imagen */
+  --bg-primary: #FFFFFF; /* Fondo general blanco puro */
+  --bg-secondary: #F8F9FA; /* Fondo gris muy claro */
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8F9FA;
+  --bg-surface: #E0E0E0; /* Gris claro para fondos secundarios */
 
-  --text-primary: #2C3E50; /* Texto principal oscuro */
-  --text-secondary: #566573; /* Texto secundario gris */
-  --text-muted: #808B96; /* Texto atenuado */
+  --text-primary: #000000; /* Texto principal negro puro */
+  --text-secondary: #333333; /* Texto secundario gris oscuro */
+  --text-muted: #666666; /* Texto atenuado gris medio */
 
-  --border: rgba(0, 0, 0, 0.1);
-  --border-light: rgba(0, 0, 0, 0.05);
+  --border: #CCCCCC; /* Bordes gris claro */
+  --border-light: #EEEEEE;
 
-  --danger: #E74C3C;
-  --success: #27AE60;
-  --warning: #F39C12;
+  --danger: #555555;
+  --success: #555555;
+  --warning: #555555;
 
   /* Typography */
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -814,6 +814,11 @@ select.form-input {
   width: 100%;
   background: var(--bg-secondary);
   z-index: 1; /* Fix internal map z-index leaking */
+}
+
+/* Base map tiles to grayscale */
+.leaflet-tile-pane, .leaflet-control-zoom {
+  filter: grayscale(100%);
 }
 
 /* Modal map container */
